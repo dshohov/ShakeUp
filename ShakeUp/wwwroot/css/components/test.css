@@ -1,0 +1,64 @@
+.cards {
+    display: flex;
+
+    gap: 15px;
+    
+  }
+  
+  .cards .red {
+    border-radius: 50px;
+background: linear-gradient(145deg, #768ab4, #637497);
+box-shadow:  23px 23px 46px #48546d,
+             -23px -23px 46px #95aee3;
+  }
+  
+  .cards .blue {
+    border-radius: 50px;
+background: linear-gradient(145deg, #76b1b4, #639597);
+box-shadow:  23px 23px 46px #486b6d,
+             -23px -23px 46px #95dfe3;
+  }
+  
+  .cards .green {
+    border-radius: 50px;
+background: linear-gradient(145deg, #a4b476, #8a9763);
+box-shadow:  23px 23px 46px #636d48,
+             -23px -23px 46px #cfe395;
+  }
+  .cards .fourth{
+    border-radius: 50px;
+background: linear-gradient(145deg, #b47676, #976363);
+box-shadow:  23px 23px 46px #6d4848,
+             -23px -23px 46px #e39595;
+  }
+  .cards .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 20px;
+    width: 250px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms;
+  }
+  
+  .cards .card p.tip {
+    font-size: 1em;
+    font-weight: 700;
+  }
+  
+  .cards .card p.second-text {
+    font-size: .7em;
+  }
+  
+  .cards .card:hover {
+    transform: scale(1.1, 1.1);
+  }
+  
+  .cards:hover > .card:not(:hover) {
+    filter: blur(10px);
+    transform: scale(0.9, 0.9);
+  }

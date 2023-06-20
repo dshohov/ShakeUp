@@ -1,0 +1,253 @@
+@import "components/rest.css";
+@import "components/fonts.css";
+@import "components/header.css";
+
+body {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    background-image: url(/icon/background.svg);
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+body.disable-scroll {
+    overflow: hidden;
+}
+.container {
+    max-width: 1260px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto;
+}
+
+.content{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin-top: 25px;
+    padding: 0px 35px 0px 35px;
+    
+}
+.search-filters{
+    width: 26%;
+
+}
+.search{
+    max-width: 285px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    background: rgba(255, 121, 68, 0.35);
+    border-radius: 10px;
+    justify-content: space-evenly;
+    height: 50px;
+}
+.search img{
+    height: 30px;
+}
+.search input{
+    border: none;
+    height: 30px;
+    background: #FFFFFF;
+    border-radius: 10px;
+}
+.search button{
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
+.filters{
+    max-width: 285px;
+    margin-top: 20px;
+    background: rgba(255, 121, 68, 0.35);
+    border-radius: 10px;
+    padding: 20px 15px 20px 15px;
+}
+.filters h1{
+    color: #FFFFFF;
+    font-size: 48px;
+}
+.line{
+    background: #FFFFFF;
+    border-radius: 10px;
+    height: 5px;
+}
+.filters h2{
+    margin-top: 10px;
+    color: #FFFFFF;
+    font-size: 36px;
+}
+.level{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.filters label{
+    flex-basis: 100%;
+    font-size: 24px;
+    color: #fff;
+}
+
+input[type="radio"] {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    -webkit-appearance: none;
+    background-color: #fff;
+    border: none;
+  }
+  
+  input[type="radio"]:checked {
+    background-color: #FF8080;
+  }
+.filters select{
+    width: 100%;
+    height: 30px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    border: none;
+    appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-left: 5px;
+}
+select:focus {
+    outline: none;
+    box-shadow: 0 0 3px 1px #ccc;
+  }
+.cards{
+    display: flex;
+    flex-basis: 75%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+  .card {
+    width: 190px;
+    height: 254px;
+    padding: .8em;
+    background: #f5f5f5;
+    position: relative;
+    overflow: visible;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+   }
+   
+   .card-img {
+    background-color: #ffcaa6;
+    height: 40%;
+    width: 100%;
+    border-radius: .5rem;
+    transition: .3s ease;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+   }
+   
+   .card-info {
+    padding-top: 10%;
+   }
+   
+   svg {
+    width: 20px;
+    height: 20px;
+   }
+   
+   .card-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    justify-content: center;
+   }
+   
+   /*Text*/
+   .text-title {
+    font-weight: 900;
+    font-size: 1.2em;
+    line-height: 1.5;
+   }
+   
+   .text-body {
+    font-size: .9em;
+    padding-bottom: 10px;
+   }
+   
+   /*Button*/
+   .card-button {
+    border: 1px solid #252525;
+    display: flex;
+    padding: .3em;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: .3s ease-in-out;
+   }
+   
+   /*Hover*/
+   .card-img:hover {
+    transform: translateY(-25%);
+    box-shadow: rgba(226, 196, 63, 0.25) 0px 13px 47px -5px, rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
+   }
+   
+   
+/* inspired form gumroad website */
+.button {
+    --bg: #000;
+    --hover-bg: #FFF;
+    --hover-text: #000;
+    color: #fff;
+    border: 1px solid var(--bg);
+    border-radius: 4px;
+    padding: 0.8em 2em;
+    background: var(--bg);
+    transition: 0.2s;
+  }
+  
+  .button:hover {
+    color: var(--hover-text);
+    transform: translate(-0.25rem,-0.25rem);
+    background: var(--hover-bg);
+    box-shadow: 0.25rem 0.25rem var(--bg);
+  }
+  
+  .button:active {
+    transform: translate(0);
+    box-shadow: none;
+  }   
+
+@media screen and (max-width: 1024px) {
+    .search input{
+        width: 130px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .search input{
+        width: 105px;
+    }
+    .content {
+        padding: 0px;
+    }
+    .content h1{
+        font-size: 20px;
+    }
+    .content h2{
+        font-size: 15px;
+    }
+    .content h3{
+        font-size: 15px;
+    }
+    .content label{
+        font-size: 10px;
+    }
+    .card{
+        margin-bottom: 30px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .search input{
+        width: 55px;
+    }
+}

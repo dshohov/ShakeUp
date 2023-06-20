@@ -1,0 +1,74 @@
+﻿/* Общие стили */
+header div {
+    margin-left: 35px;
+    margin-right: 35px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.icon {
+    height: 21px;
+}
+
+header h3 {
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+header::after {
+    content: "";
+    display: block;
+    border-bottom: 4px solid #FFB395;
+    width: 97%;
+    margin: 10px auto;
+}
+
+@media (max-width: 1200px) {
+    .logo {
+        flex-basis: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    header div {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Стили для экранов шириной до 480px */
+    header div {
+        margin-left: 5px;
+        margin-right: 5px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.bottone1 {
+    padding-left: 33px;
+    padding-right: 33px;
+    padding-bottom: 16px;
+    padding-top: 16px;
+    border-radius: 9px;
+    background: none;
+    border: none;
+    font-family: inherit;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+    .bottone1:hover {
+        box-shadow: 7px 5px 56px -14px #C3D900;
+    }
+
+    .bottone1:active {
+        transform: scale(0.97);
+        box-shadow: 7px 5px 56px -10px #C3D900;
+    }
