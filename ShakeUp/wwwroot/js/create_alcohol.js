@@ -28,17 +28,14 @@ function changeBackground() {
     block.style.backgroundColor = selectedColor;
 
 };
-function showImage() {
+function previewImage(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
 
+    reader.onload = function (e) {
+        const imagePreview = document.getElementById('myBlock');
+        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview" />`;
+    };
 
-    var selectedglass = document.querySelector('input[name="glass"]:checked').value;
-    var selectedice = document.querySelector('input[name="glass_ice"]:checked').value;
-    var selectecolor = document.querySelector('input[name="color"]:checked').value;
-    var coctailFolder = selectedglass + selectedice;
-    var coctail = selectedglass + selectedice + selectecolor;
-    var imageElement = document.getElementById("image");
-    imageElement.src = "/icon/glass/" + coctailFolder + "/" + coctail + ".svg"
-
-
-
-};
+    reader.readAsDataURL(file);
+}
