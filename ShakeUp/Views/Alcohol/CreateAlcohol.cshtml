@@ -18,36 +18,26 @@
                    required="required">
         </div>
         <div>
-            <label class="usernamelabel label">Description Alcohol</label>
-            <input asp-for="Degree" type="number" class="inputs" id="degree"
+            <label class="usernamelabel label">Degree Alcohol</label>
+            <input asp-for="Degree" min="0" type="number" class="inputs" id="degree"
                    required="required">
         </div>
         <div>
-            <input type="file" id="fileUpload" onchange="previewImage(event)" />
-
-
-
-
+            <h1 style="color:red;">@ViewBag.Message</h1>
+            <label class="usernamelabel label">Photo Alcohol Type: .svg</label>
+            <input type="file" accept="image/svg+xml" name="fileUpload" onchange="previewImage(event)" style="width:100%;"/>
         </div>
-        <div>
-            <select asp-for="Type" asp-items="@Html.GetEnumSelectList<DrinkStrength>()">
-                <option>--Select--</option>
-            </select>
-        </div>
-
         <div>
             <label for="usernameField" class="usernamelabel label">Choose color background</label>
             <input asp-for="BackgroundColor" type="color" value="#FFB395" id="colorPicker" oninput="changeBackground()">
 
         </div>
-        <button>Submit</button>
+        <button class="formsumb">Button</button>
     </form>
-
 
 </div>
 <div class="card">
     <div class="card-img" id="myBlock">
-       
     </div>
     <div class="card-info">
         <p class="text-title" id="product-title">Product title </p>

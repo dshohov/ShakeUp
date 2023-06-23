@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShakeUp.Helpers;
 using ShakeUp.Interfaces;
 using ShakeUp.Models;
 using ShakeUp.ViewModels;
@@ -13,9 +14,12 @@ namespace ShakeUp.Controllers
             _alcoholRepository = alcoholRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? sortType)
         {
-            return View();
+            int actualSortType = sortType ?? 1;
+            var a = actualSortType == 1 ? _alcoholRepository.SortNameAtoZ() : _alcoholRepository.SortNameZtoA();
+
+            return View(a);
         }
         public IActionResult CreateAlcohol()
         {
@@ -24,27 +28,24 @@ namespace ShakeUp.Controllers
         [HttpPost]
         public IActionResult CreateAlcohol(AlcoholVM alcoholVM, IFormFile fileUpload)
         {
-            if (fileUpload != null && fileUpload.Length > 0)
+            Alcohol alcohol = new Alcohol()
             {
-                using (var memoryStream = new MemoryStream())
-                {
-                    fileUpload.CopyTo(memoryStream);
-                    byte[] fileBytes = memoryStream.ToArray();
-                    Alcohol alcohol = new Alcohol()
-                    {
-                        Name = alcoholVM.Name,
-                        Description = alcoholVM.Description,
-                        Type = alcoholVM.Type,
-                        Degree = alcoholVM.Degree,
-                        Photo = fileBytes,
-                        BackgroundColor = alcoholVM.BackgroundColor
-                    };
-
-                    _alcoholRepository.Add(alcohol);
-                }
+                Name = alcoholVM.Name,
+                Description = alcoholVM.Description,
+                Type = _alcoholRepository.ChooseStrength(alcoholVM.Degree),
+                Degree = alcoholVM.Degree,
+                Photo = PhotoHelp.GetBytesPhoto(fileUpload),
+                BackgroundColor = alcoholVM.BackgroundColor
+            };
+            if(alcohol.Photo != null)
+            {
+                _alcoholRepository.Add(alcohol);
+                return RedirectToAction("Index", "Home");
             }
-
-            
+            else
+            {
+                ViewBag.Message = "Please send only svg photo";
+            }
             return View();
         }
     }

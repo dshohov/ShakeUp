@@ -1,11 +1,38 @@
-﻿
-    <link rel="stylesheet" href="/css/alcohol.css">
+﻿@model IEnumerable<Alcohol>
+
+<link rel="stylesheet" href="/css/alcohol.css">
 <div class="search-filters">
     <div class="search">
         <input type="text">
         <button><img src="/icon/search.svg" alt="SVG image"></button>
     </div>
     <div class="filters">
+        <h1>Sort</h1>
+
+        <div class="alcohol-filter">
+            <form id="sortForm" action="@Url.Action("Index", "Alcohol")" method="get">
+                <select id="sort" name="sortType" onchange="submitForm()">
+                    <option value="">-- Choose --</option>
+                    <option value="1">A>Z</option>
+                    <option value="2">Z>A</option>
+                </select>
+            </form>
+
+            <script>
+                function submitForm() {
+                    document.getElementById("sortForm").submit();
+                }
+            </script>
+        </div>
+        <script>
+            function redirectToPage(value) {
+                if (value === '1') {
+                    window.location.href = '/Alcohol?sortType=1';
+                } else if (value === '2') {
+                    window.location.href = '/Alcohol?sortType=2';
+                }
+            }
+        </script>
         <h1>Filters</h1>
         <div class="line"></div>
         <div class="level">
@@ -58,68 +85,47 @@
     </div>
 </div>
 <ul class="cards">
-    <li>
-        <div class="card">
-            <div class="card-img">
-                <img src="/icon/glass/HSI/HSI12.svg" alt="">
+    @foreach (Alcohol alcohol in Model)
+    {
+        <li>
+            <div class="card">
+                <div class="card-img" style="background-color:@alcohol.BackgroundColor;">
+                    @if (alcohol.Photo != null && alcohol.Photo.Length > 0)
+                    {
+                        string base64String = Convert.ToBase64String(alcohol.Photo);
+                        string imgSrc = string.Format("data:image/svg+xml;base64,{0}", base64String);
+                        <img src="@imgSrc" alt="Image" />
+                    }
+
+                </div>
+                <div class="card-info">
+                    @{
+                        string name = alcohol.Name;
+                        string description = alcohol.Description;
+
+                        if (!string.IsNullOrEmpty(name) && name.Length > 13)
+                        {
+                            name = name.Substring(0, 10) + "...";
+                        }
+
+                        if (!string.IsNullOrEmpty(description) && description.Length > 13)
+                        {
+                            description = description.Substring(0, 30) + "...";
+                        }
+                    }
+                    <p class="text-title" id="name">@name</p>
+                    <p class="text-body" id="description">@description</p>
+
+                </div>
+                <div class="card-footer">
+                    <button class="button">
+                        Hover me :)
+                    </button>
+                </div>
             </div>
-            <div class="card-info">
-                <p class="text-title">Product title </p>
-                <p class="text-body">Product description and details</p>
-            </div>
-            <div class="card-footer">
-                <button class="button">
-                    Hover me :)
-                </button>
-            </div>
-        </div>
-    </li>
-    <li>
-        <div class="card">
-            <div class="card-img">
-                <img src="/icon/glass/HSI/HSI6.svg" alt="">
-            </div>
-            <div class="card-info">
-                <p class="text-title">Product title </p>
-                <p class="text-body">Product description and details</p>
-            </div>
-            <div class="card-footer">
-                <button class="button">
-                    Hover me :)
-                </button>
-            </div>
-        </div>
-    </li>
-    <li>
-        <div class="card">
-            <div class="card-img">
-                <img src="/icon/glass/HSI/HSI11.svg" alt="">
-            </div>
-            <div class="card-info">
-                <p class="text-title">Product title </p>
-                <p class="text-body">Product description and details</p>
-            </div>
-            <div class="card-footer">
-                <button class="button">
-                    Hover me :)
-                </button>
-            </div>
-        </div>
-    </li>
-    <li>
-        <div class="card">
-            <div class="card-img">
-                <img src="/icon/glass/HSI/HSI2.svg" alt="">
-            </div>
-            <div class="card-info">
-                <p class="text-title">Product title </p>
-                <p class="text-body">Product description and details</p>
-            </div>
-            <div class="card-footer">
-                <button class="button">
-                    Hover me :)
-                </button>
-            </div>
-        </div>
-    </li>
+        </li>
+    }
+
+
 </ul>
+

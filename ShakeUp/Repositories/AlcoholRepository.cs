@@ -1,4 +1,5 @@
 ﻿using ShakeUp.Data;
+using ShakeUp.Data.Enum;
 using ShakeUp.Interfaces;
 using ShakeUp.Models;
 
@@ -35,5 +36,12 @@ namespace ShakeUp.Repositories
             _context.Update(alcohol);
             return Save();
         }
+        public DrinkStrength ChooseStrength(double degree) => degree <= 10 ? DrinkStrength.Weak : degree <= 20 ? DrinkStrength.Medium : DrinkStrength.Strong;
+
+        public IEnumerable<Alcohol> GetAllAlcohols() => _context.Alcohols.ToList();
+
+        public IEnumerable<Alcohol> SortNameAtoZ() => GetAllAlcohols().OrderBy(item => item.Name);
+
+        public IEnumerable<Alcohol> SortNameZtoA() => GetAllAlcohols().OrderByDescending(item => item.Name);
     }
 }
