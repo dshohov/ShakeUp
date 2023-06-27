@@ -36,12 +36,16 @@ namespace ShakeUp.Repositories
             _context.Update(alcohol);
             return Save();
         }
-        public DrinkStrength ChooseStrength(double degree) => degree <= 10 ? DrinkStrength.Weak : degree <= 20 ? DrinkStrength.Medium : DrinkStrength.Strong;
+        
 
         public IEnumerable<Alcohol> GetAllAlcohols() => _context.Alcohols.ToList();
+        public Alcohol GetAlcoholById(int id) => _context.Alcohols.FirstOrDefault(item => item.Id == id);
 
-        public IEnumerable<Alcohol> SortNameAtoZ() => GetAllAlcohols().OrderBy(item => item.Name);
+        //Filter
+        public IQueryable<Alcohol> FilterType(int drinkStrength) => _context.Alcohols.Where(item => (int)item.Type == drinkStrength);
+        //Other
+        public DrinkStrength ChooseStrength(double degree) => degree <= 10 ? DrinkStrength.Weak : degree <= 20 ? DrinkStrength.Medium : DrinkStrength.Strong;
 
-        public IEnumerable<Alcohol> SortNameZtoA() => GetAllAlcohols().OrderByDescending(item => item.Name);
+        
     }
 }

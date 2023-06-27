@@ -125,6 +125,7 @@ select:focus {
     justify-content: space-evenly;
 }
   .card {
+    margin-bottom: 20px;
     width: 190px;
     height: 254px;
     padding: .8em;
@@ -216,7 +217,11 @@ select:focus {
   .button:active {
     transform: translate(0);
     box-shadow: none;
-  }   
+  }
+#filterForm {
+    margin-top: 15px;
+    width: 100%;
+}
 
 @media screen and (max-width: 1024px) {
     .search input{

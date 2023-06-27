@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShakeUp.Data.Enum;
 using ShakeUp.Helpers;
 using ShakeUp.Interfaces;
 using ShakeUp.Models;
@@ -13,13 +14,11 @@ namespace ShakeUp.Controllers
         {
             _alcoholRepository = alcoholRepository;
         }
-
-        public IActionResult Index(int? sortType)
+        public IActionResult Index(int filterType = 0)
         {
-            int actualSortType = sortType ?? 1;
-            var a = actualSortType == 1 ? _alcoholRepository.SortNameAtoZ() : _alcoholRepository.SortNameZtoA();
-
-            return View(a);
+            var alcohols = filterType == 0 ? _alcoholRepository.GetAllAlcohols() 
+                                           : _alcoholRepository.FilterType(filterType);
+            return View(alcohols);
         }
         public IActionResult CreateAlcohol()
         {
@@ -37,7 +36,7 @@ namespace ShakeUp.Controllers
                 Photo = PhotoHelp.GetBytesPhoto(fileUpload),
                 BackgroundColor = alcoholVM.BackgroundColor
             };
-            if(alcohol.Photo != null)
+            if (alcohol.Photo != null)
             {
                 _alcoholRepository.Add(alcohol);
                 return RedirectToAction("Index", "Home");
@@ -48,5 +47,35 @@ namespace ShakeUp.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public IActionResult UpdateAlcohol(int id)
+        {
+
+            return View(_alcoholRepository.GetAlcoholById(id));
+        }
+        [HttpPost]
+        public IActionResult UpdateAlcohol(AlcoholVM alcoholVM, IFormFile fileUpload)
+        {
+            Alcohol alcohol = _alcoholRepository.GetAlcoholById(alcoholVM.Id);
+            if (alcohol != null)
+            {
+                alcohol.Name = alcoholVM.Name;
+                alcohol.Description = alcoholVM.Description;
+                alcohol.Degree = alcoholVM.Degree;
+                alcohol.Photo = fileUpload == null ? alcohol.Photo : PhotoHelp.GetBytesPhoto(fileUpload);
+                alcohol.Type = _alcoholRepository.ChooseStrength(alcoholVM.Degree);
+                alcohol.BackgroundColor = alcoholVM.BackgroundColor;
+                _alcoholRepository.Update(alcohol);
+                return RedirectToAction("Index", "Alcohol");
+            }
+            return View(alcohol);
+        }
+        public IActionResult DeleteAlcohol(int id)
+        {
+            var alcohol = _alcoholRepository.GetAlcoholById(id);
+            _alcoholRepository.Delete(alcohol);
+            return RedirectToAction("Index", "Alcohol");
+        }        
     }
+    
 }

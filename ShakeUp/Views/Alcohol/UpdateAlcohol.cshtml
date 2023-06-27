@@ -1,0 +1,61 @@
+﻿@using ShakeUp.Data.Enum
+@using ShakeUp.ViewModels
+@model Alcohol
+
+
+<link rel="stylesheet" href="/css/create.css">
+<div class="create_form">
+    <h1>Create Alcohol</h1>
+    <form asp-action="UpdateAlcohol" enctype="multipart/form-data" method="post" class="create">
+        <input asp-for="Id" type="hidden" value="@Model.Id" id="id" >
+        <div>
+            <label for="usernameField" class="usernamelabel label">Name Alcohol</label>
+            <input asp-for="Name" type="text" class="inputs" value="@Model.Name" id="name" oninput="updateTitle()"
+                   required="required">
+        </div>
+        <div>
+            <label for="usernameField" class="usernamelabel label">Description Alcohol</label>
+            <input asp-for="Description" value="@Model.Description" type="text" class="inputs" id="description" oninput="updateDescription()"
+                   required="required">
+        </div>
+        <div>
+            <label class="usernamelabel label">Degree Alcohol</label>
+            <input asp-for="Degree" min="0" max="100" value="@Model.Degree" type="number" class="inputs" id="degree"
+                   required="required">
+        </div>
+        <div>
+            <h1 style="color:red;">@ViewBag.Message</h1>
+            <label class="usernamelabel label">Photo Alcohol Type: .svg</label>
+            <input type="file" accept="image/svg+xml" name="fileUpload" onchange="previewImage(event)" style="width:100%;"/>
+        </div>
+        <div>
+            <label for="usernameField" class="usernamelabel label">Choose color background</label>
+            <input asp-for="BackgroundColor" type="color" value="@Model.BackgroundColor" id="colorPicker" oninput="changeBackground()">
+
+        </div>
+        <button class="formsumb">Update</button>
+        <a asp-action="DeleteAlcohol" asp-controller="Alcohol" asp-route-id="@Model.Id" onclick="return confirm('Вы уверены, что хотите удалить?')"  class="formsumb" style="background-color:red;">Delete</a>    
+    </form>
+
+</div>
+<div class="card">
+    <div style="background-color:@Model.BackgroundColor;" class="card-img" id="myBlock">
+        @if (Model.Photo != null && Model.Photo.Length > 0)
+                    {
+                        string base64String = Convert.ToBase64String(Model.Photo);
+                        string imgSrc = string.Format("data:image/svg+xml;base64,{0}", base64String);
+                        <img src="@imgSrc" alt="Image" />
+                    }
+    </div>
+    <div class="card-info">
+        <p class="text-title" id="product-title">@Model.Name</p>
+        <p class="text-body" id="product-description">@Model.Description</p>
+    </div>
+    <div class="card-footer">
+        <button class="button">
+            Hover me :)
+        </button>
+    </div>
+</div>
+
+<script src="/js/create_alcohol.js"></script>
