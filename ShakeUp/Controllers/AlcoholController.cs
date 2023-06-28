@@ -72,8 +72,7 @@ namespace ShakeUp.Controllers
         }
         public IActionResult DeleteAlcohol(int id)
         {
-            var alcohol = _alcoholRepository.GetAlcoholById(id);
-            _alcoholRepository.Delete(alcohol);
+            _alcoholRepository.Delete(_alcoholRepository.GetAlcoholById(id));
             return RedirectToAction("Index", "Alcohol");
         }        
     }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShakeUp.Data.Enum;
+using ShakeUp.Helpers;
 using ShakeUp.Models;
 using System.Diagnostics;
 
@@ -15,6 +17,12 @@ namespace ShakeUp.Controllers
 
         public IActionResult Index()
         {
+            Phrasescs[] allValues = (Phrasescs[])Enum.GetValues(typeof(Phrasescs));
+            Random random = new Random();
+            Phrasescs randomValue = allValues[random.Next(allValues.Length)];
+            string description = randomValue.GetDescription();
+            ViewBag.Message = description;
+
             return View();
         }
 
